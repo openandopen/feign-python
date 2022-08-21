@@ -215,14 +215,15 @@ class DictApi2:
   <span>
   <img src="images/weixin.jpg" width="200" height="200">
   </span>
+</div>
+
+#### 打赏
+
+<div>
   <span>
   <img src="images/support.jpg" width="200" height="200">
   </span>
 </div>
-
-
-
-
 
 
 
