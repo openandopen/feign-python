@@ -12,14 +12,14 @@ setup(
     author_email="zuiwoxing@qq.com",
     description="feign python实现",
     long_description_content_type="text/markdown",
-    url="https://www.messagesea.com/",
+    url="https://github.com/openandopen/feign-python",
     packages= find_packages(),
     classifiers=[
         # 发展时期,常见的如下
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 3 - Beta',
+        'Development Status :: 4 - Beta',
         # 开发的目标用户
         'Intended Audience :: Developers',
         # 属于什么类型

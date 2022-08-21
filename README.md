@@ -5,10 +5,11 @@
    作者: 黑肱
    邮箱: zuiwoxing@qq.com
 ```
+
 ### 项目安装
 ```
 pip install feign-python
-``` 
+```
 ### 使用示例
 #### 一. 第一种使用方式
 ```python
@@ -204,3 +205,24 @@ my_exception_handler = MyExceptionHandler()
 class DictApi2:
  pass
 ```
+
+
+
+
+#### 交流
+
+<div>
+  <span>
+  <img src="images/weixin.jpg" width="200" height="200">
+  </span>
+  <span>
+  <img src="images/support.jpg" width="200" height="200">
+  </span>
+</div>
+
+
+
+
+
+
+

@@ -138,3 +138,5 @@ dmypy.json
 cython_debug/
 .idea
 venv
+dist
+feign_python.egg-info
