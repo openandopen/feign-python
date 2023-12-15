@@ -1,0 +1,18 @@
+[project]
+name = "feign-python"
+version = "0.0.5"
+authors = [
+  { name="ldj", email="zuiwoxing@qq.com" },
+]
+description = "feign python实现,提供python应用与java微服务体系集成，目前支持注册中心(nacos)以及非注册中心调用模式"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/openandopen/feign-python.git"
+Issues = "https://github.com/openandopen/feign-python/issues"
