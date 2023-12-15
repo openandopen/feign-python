@@ -19,7 +19,7 @@ setup(
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Beta',
         # 开发的目标用户
         'Intended Audience :: Developers',
         # 属于什么类型

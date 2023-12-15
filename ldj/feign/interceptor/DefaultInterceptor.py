@@ -9,9 +9,7 @@ from pydantic import BaseModel
 
 # 拦截器
 from toolbox import ObjectDict
-
 from ldj.common import Constant
-
 from ldj.config import settings
 from ldj.feign.enums.Method import Method
 from ldj.feign.interceptor.Interceptor import Interceptor, ProcessRequest
@@ -46,7 +44,7 @@ class DefaultInterceptor(Interceptor):
             code = res_data.code
             status = res_data.status
             message = res_data.message
-            data = res_data.result
+            data = res_data.data
 
             if isinstance(data, list):
                 result = list()
@@ -60,6 +58,21 @@ class DefaultInterceptor(Interceptor):
                 final_result = Response.success(status, code, message, result)
             else:
                 final_result = Response.fail(status, code, message)
+        elif  Constant.HTTP_405 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_405, code=Constant.BIZ_ERROR,
+                                         message="Method not allowed")
+        elif Constant.HTTP_401 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_401, code=Constant.BIZ_ERROR,
+                                         message="Unauthorized")
+        elif Constant.HTTP_403 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_403, code=Constant.BIZ_ERROR,
+                                         message="forbidden")
+        elif Constant.HTTP_404 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_404, code=Constant.BIZ_ERROR,
+                                         message="url Not Found")
+        elif Constant.HTTP_504 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_504, code=Constant.BIZ_ERROR,
+                                         message="Gateway Timeout")
         else:
             final_result = Response.fail(status=Constant.HTTP_ERROR, code=Constant.BIZ_ERROR,
                                          message=resp.reason)

@@ -41,6 +41,22 @@ class MyInterceptor(Interceptor):
                 final_result = Response.success(status, code, message, result)
             else:
                 final_result = Response.fail(status, code, message)
+
+        elif Constant.HTTP_405 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_405, code=Constant.BIZ_ERROR,
+                                         message="Method not allowed")
+        elif Constant.HTTP_401 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_401, code=Constant.BIZ_ERROR,
+                                         message="Unauthorized")
+        elif Constant.HTTP_403 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_403, code=Constant.BIZ_ERROR,
+                                         message="forbidden")
+        elif Constant.HTTP_404 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_404, code=Constant.BIZ_ERROR,
+                                         message="url Not Found")
+        elif Constant.HTTP_504 == resp.status_code:
+            final_result = Response.fail(status=Constant.HTTP_504, code=Constant.BIZ_ERROR,
+                                         message="Gateway Timeout")
         else:
             final_result = Response.fail(status=Constant.HTTP_ERROR, code=Constant.BIZ_ERROR,
                                          message=resp.reason)
