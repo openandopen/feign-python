@@ -18,13 +18,13 @@ class Response(BaseModel):
     status: int = Constant.HTTP_SUCCESS
     message: str = ""
     code: int = Constant.BIZ_SUCCESS
-    result: object = None
+    data: object = None
 
     def toJson(self):
         return self.json()
 
     @staticmethod
-    def success(status=None, message=None, code=None, result=None):
+    def success(status=None, message=None, code=None, data=None):
         if status is None:
             status = Constant.HTTP_SUCCESS
         if message is None:
@@ -35,11 +35,11 @@ class Response(BaseModel):
         res.status = status
         res.message = message
         res.code = code
-        res.result = result
+        res.data = data
         return res
 
     @staticmethod
-    def fail(status=None, message=None, code=None, result=None):
+    def fail(status=None, message=None, code=None, data=None):
         res = Response()
         if status is None:
             status = Constant.HTTP_ERROR
@@ -50,5 +50,5 @@ class Response(BaseModel):
         res.status = status
         res.message = message
         res.code = code
-        res.result = result
+        res.data = data
         return res

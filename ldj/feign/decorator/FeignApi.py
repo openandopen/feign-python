@@ -92,10 +92,10 @@ class FeignApi(object):
                 finalUrl = UrlUtil.wrap_url(self.uri, prefix=service_url)
                 # 请求前拦截器
                 pr: ProcessRequest = self.interceptor.encode(method=method,
-                                                                      headers=headers,
-                                                                      params=params,
-                                                                      body=body,
-                                                                      data=data)
+                                                             headers=headers,
+                                                             params=params,
+                                                             body=body,
+                                                             data=data)
                 # 执行请求
                 resp = requests.request(method.name, finalUrl,
                                         params=pr.params, json=pr.body,

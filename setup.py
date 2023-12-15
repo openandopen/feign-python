@@ -7,7 +7,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="feign-python",
-    version="0.0.1",
+    version="0.0.3",
     author="黑肱",
     author_email="zuiwoxing@qq.com",
     description="feign python实现",
