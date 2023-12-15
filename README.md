@@ -11,7 +11,7 @@
 pip install feign-python
 ```
 ### 使用示例
-#### 一. 第一种使用方式
+#### 一. 第一种使用方式-静态调用【nacos注册中心】
 ```python
 from requests import Response
 from ldj.feign.decorator.FeignApi import FeignApi
@@ -56,7 +56,7 @@ list_all()
 dict_detail()
 
 ```
-#### 二. 第二种使用方式 
+#### 二. 第二种使用方式 -实例调用【nacos注册中心】
 ```python
 from requests import Response
 from ldj.example.dto.models import QueryDto
@@ -109,7 +109,7 @@ dict_detail()
    如果需要将本机服务发布到注册中心,可调用如下方法
    RegisterCenterHelper.init_register_center()
 ```
-#### 三. 第三种使用方式-无注册中心
+#### 三. 第三种使用方式-静态调用-无注册中心
 ```python
  #直接调用方式,只需要配置serverUrl,如果serverUrl与serviceId同时存在，则以serverUrl为准,除非serverUrl被设置为None,则无效
 from requests import Response
@@ -133,7 +133,7 @@ class DictApiNoCenter:
                     appCode: str, dictCode: str) -> Response: ...
 ```
 
-#### 四. 第四种使用方式-无注册中心
+#### 四. 第四种使用方式-实例调用-无注册中心
 ```python
 from requests import Response
 from ldj.example import ExampleConfig
@@ -194,7 +194,62 @@ class Response(BaseModel):
     result: object = None
  pass
 ```
-#### 六. 异常处理
+#### 六.自定义编码与解码器示例
+
+```python
+
+from requests import Response
+
+from ldj.example import ExampleConfig
+from ldj.example.interceptor.MyInterceptor import MyInterceptor
+from ldj.feign.decorator.Api import Api
+from ldj.feign.decorator.Feign import Feign
+from ldj.feign.decorator.FeignApi import FeignApi
+from ldj.feign.enums.Method import Method
+from models import QueryDto
+'''
+自定义编码与解码器实例,MyInterceptor源代码参见 ldj/example/interceptor/MyInterceptor
+'''
+my_interceptor = MyInterceptor()
+
+class DictNacosApi:
+    '''
+    静态方法直接调用【nacos注册中心】  serviceId为注册中心服务名
+    '''
+
+    @staticmethod
+    @FeignApi(method=Method.POST, uri="/sd/api/gc/dict/list", serviceId="sd", name="字典数据",interceptor=my_interceptor)
+    def list(esQueryDto: QueryDto) -> Response: ...
+
+@Feign(prefix="/sd/api/gc/dict", serviceId="sd", name="共享服务-字典服务", interceptor=my_interceptor)
+class DictNacosApi2:
+    '''
+    实例方式调用  【nacos注册中心】 serviceId为注册中心服务名
+    '''
+
+    @Api(method=Method.POST, uri="list", name="查询字典列表数据")
+    def list(self, queryDto: QueryDto) -> Response: ...
+
+
+'''
+设置nacos地址
+'''
+ExampleConfig.init_nacos_config();
+queryDto = QueryDto()
+queryDto.appCode = "gc"
+queryDto.tenantKey = "123"
+queryDto.namespaceCode = 'default'
+response = DictNacosApi.list(queryDto)
+print(response.data)
+print("===================================")
+api2 = DictNacosApi2()
+response = api2.list(queryDto)
+print(response)
+```
+
+
+
+#### 七. 异常处理
 
 ```markdown
  异常默认是通过loguru来做日志记录,其默认实现 DefaultExceptionHandler。如果需要自定义异常处理只需要继承ExceptionHandler
